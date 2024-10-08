@@ -53,21 +53,26 @@ function numberOfComputers(n) {
 console.log(numberOfComputers(1048));
 
 // Задачa № 2
-function findingCommonFact(inputArr) {
-  let arr = [];
-  for (let i = 2; i <= inputArr[0]; i++) {
-    if (inputArr[0] % i === 0) {
-      arr.push(i);
-    }
-  }
-  for (const item of inputArr.slice(1)) {
-    for (const div of arr) {
-      if (item % div !== 0) {
-        arr = arr.filter((i) => i !== div);
+function findingCommonFact(arr) {
+  function gcd(a, b) {
+      while (b) {
+          [a, b] = [b, a % b];
       }
-    }
+      return a;
   }
-  return arr;
+  let commonGcd = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+      commonGcd = gcd(commonGcd, arr[i]);
+  }
+
+  const divisors = [];
+  for (let i = 2; i <= commonGcd; i++) {
+      if (commonGcd % i === 0) {
+          divisors.push(i);
+      }
+  }
+
+  return divisors;
 }
 console.log(findingCommonFact([42, 12, 18]));
 
@@ -117,4 +122,4 @@ function printMultiplicationTable(n) {
   }
 }
 
-printMultiplicationTable(25);
+printMultiplicationTable(5);
